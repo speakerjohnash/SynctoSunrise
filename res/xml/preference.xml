@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <PreferenceCategory
+                android:title="Mode">
+      	 <CheckBoxPreference
+                android:key="syncPref"
+                android:title="Sync to Sunrise"
+                android:defaultValue="true" />
+      	 <CheckBoxPreference
+                android:key="customPref"
+                android:title="Custom Schedule"
+                android:defaultValue="false" />
+        </PreferenceCategory>
+        
+        <PreferenceCategory android:title="Settings">
+        	<PreferenceScreen android:title="General"
+        					  android:key="generalPrefs">
+        		 <Preference
+                android:title="Current Wake Time"
+                android:summary="When did you last wake up?"
+                android:key="currentWakePref" 
+                />
+      	 		<Preference
+                android:title="Current Sleep Time"
+                android:summary="When did you last go to sleep?"
+                android:key="currentSleepPref" />
+         		<Preference
+                android:title="Goal Date"
+                android:summary="When did you want to have your new sleep schedule by?"
+                android:key="goalDatePref" />      
+        	</PreferenceScreen>
+        	
+        	<PreferenceScreen android:title="Sync to Sunrise"
+        				      android:key="syncPrefs">
+        		<Preference
+        		android:title="Maximum Sleep"
+                android:summary="Set the maximum amout of sleep you want to get while syncing"
+                android:key="maxSleepPref" />
+      	 		<Preference
+                android:title="Minimum Sleep"
+                android:summary="Set the minimum amout of sleep you want to get while syncing"
+                android:key="minSleepPref" />
+      	 		<Preference
+                android:title="Offset Wake Time"
+                android:summary="Offset your wake alarm from sunrise"
+                android:key="offsetPref" />
+         		<com.pi.synctosunrise.display.IconPreferenceScreen
+                android:title="Update Location"
+                android:summary="Update your location (This information is used to calculate the sunrise at your location)"
+                android:key="locationPref" />
+        	</PreferenceScreen>
+        	
+        	<PreferenceScreen android:title="Custom Schedule"
+        					  android:key="customPrefs">
+        	 	<Preference
+                android:title="Goal Wake Time"
+                android:summary="When do you want to wake up by?"
+                android:key="goalWakePref" />
+      	 		<Preference
+                android:title="Goal Sleep Time"
+                android:summary="When do you want to be asleep by?"
+                android:key="goalSleepPref" />
+        	</PreferenceScreen>
+        	
+        </PreferenceCategory>
+    
+</PreferenceScreen>

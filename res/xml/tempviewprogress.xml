@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+				 <PreferenceCategory
+                android:title="Stats">        
+        		 <Preference
+                android:title="Next Wake Alarm"
+                android:summary="When the next wake alarm will go off"
+                android:key="nextWakeAlarmPref" 
+                />
+      	 		<Preference
+                android:title="Next Sleep Alarm"
+                android:summary="When the next sleep alarm will go off"
+                android:key="nextSleepAlarmPref" />
+         		<Preference
+                android:title="Days Left"
+                android:summary="How many days left until you reach your goal"
+                android:key="daysLeftPref" />  
+                </PreferenceCategory>    
+</PreferenceScreen>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/menu_view_progress"
+          android:icon="@drawable/menu_view_progress"
+          android:title="View Progress" />
+     <item android:id="@+id/menu_alarm_settings"
+          android:icon="@drawable/menu_alarm_settings"
+          android:title="Alarm Settings" />
+    <item android:id="@+id/menu_set_goal"
+          android:icon="@drawable/menu_set_goal"
+          android:title="Set Goal" />
+    <item android:id="@+id/menu_email"
+          android:icon="@drawable/menu_email"
+          android:title="Email Us" />
+</menu>

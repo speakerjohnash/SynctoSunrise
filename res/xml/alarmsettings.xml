@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory
+		android:title="Wake Alarm">
+		<Preference
+                android:title="Alarm Tone"
+                android:summary="Select ringtone"
+                android:key="wakeURIPref" 
+                />
+        <CheckBoxPreference
+                android:key="gradualWakePref"
+                android:title="Gradual Alarm"
+                android:defaultValue="false" />
+        <CheckBoxPreference
+                android:key="disableWakePref"
+                android:title="Disable"
+                android:defaultValue="false" />
+	</PreferenceCategory>
+	
+	<PreferenceCategory
+		android:title="Sleep Alarm">
+		<Preference
+                android:title="Alarm Tone"
+                android:summary="Select ringtone"
+                android:key="sleepURIPref" 
+                />
+        <CheckBoxPreference
+                android:key="gradualSleepPref"
+                android:title="Gradual Alarm"
+                android:defaultValue="true" />
+        <CheckBoxPreference
+                android:key="disableSleepPref"
+                android:title="Disable"
+                android:defaultValue="false" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dip"
+    >
+
+    <TableRow android:gravity="center" >
+
+      		<com.pi.synctosunrise.display.NumberPicker
+            android:id="@+id/dialoghour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:gravity="center"
+            />
+    
+    		<TextView
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		   
+    		    android:text="hr"
+    		    android:textSize="18sp" />
+    
+    		<com.pi.synctosunrise.display.NumberPicker
+            android:id="@+id/dialogminute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:gravity="center"
+            />
+    
+    		<TextView
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:gravity="center"
+    		    android:text="min"
+    		    android:textSize="18sp" />
+
+    </TableRow>
+</TableLayout>
