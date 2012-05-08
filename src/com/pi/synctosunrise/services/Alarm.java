@@ -80,6 +80,8 @@ public class Alarm extends Service {
 			gradualAlarm = sp.getSleepGradual();
 		}
 		
+		// Just a Test
+		
 		// If Alarm is null get default
 		if(uri == null){
             // alert is null, using backup
