@@ -14,6 +14,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int icon=0x7f010000;
     }
+    public static final class dimen {
+        public static final int widget_margin=0x7f050000;
+    }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
         public static final int location_icon=0x7f020001;
@@ -21,38 +24,41 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int menu_email=0x7f020003;
         public static final int menu_set_goal=0x7f020004;
         public static final int menu_view_progress=0x7f020005;
-        public static final int timepicker_down_btn=0x7f020006;
-        public static final int timepicker_down_disabled=0x7f020007;
-        public static final int timepicker_down_disabled_focused=0x7f020008;
-        public static final int timepicker_down_normal=0x7f020009;
-        public static final int timepicker_down_pressed=0x7f02000a;
-        public static final int timepicker_down_selected=0x7f02000b;
-        public static final int timepicker_input=0x7f02000c;
-        public static final int timepicker_input_disabled=0x7f02000d;
-        public static final int timepicker_input_normal=0x7f02000e;
-        public static final int timepicker_input_pressed=0x7f02000f;
-        public static final int timepicker_input_selected=0x7f020010;
-        public static final int timepicker_up_btn=0x7f020011;
-        public static final int timepicker_up_disabled=0x7f020012;
-        public static final int timepicker_up_disabled_focused=0x7f020013;
-        public static final int timepicker_up_normal=0x7f020014;
-        public static final int timepicker_up_pressed=0x7f020015;
-        public static final int timepicker_up_selected=0x7f020016;
+        public static final int moon=0x7f020006;
+        public static final int sun=0x7f020007;
+        public static final int timepicker_down_btn=0x7f020008;
+        public static final int timepicker_down_disabled=0x7f020009;
+        public static final int timepicker_down_disabled_focused=0x7f02000a;
+        public static final int timepicker_down_normal=0x7f02000b;
+        public static final int timepicker_down_pressed=0x7f02000c;
+        public static final int timepicker_down_selected=0x7f02000d;
+        public static final int timepicker_input=0x7f02000e;
+        public static final int timepicker_input_disabled=0x7f02000f;
+        public static final int timepicker_input_normal=0x7f020010;
+        public static final int timepicker_input_pressed=0x7f020011;
+        public static final int timepicker_input_selected=0x7f020012;
+        public static final int timepicker_up_btn=0x7f020013;
+        public static final int timepicker_up_disabled=0x7f020014;
+        public static final int timepicker_up_disabled_focused=0x7f020015;
+        public static final int timepicker_up_normal=0x7f020016;
+        public static final int timepicker_up_pressed=0x7f020017;
+        public static final int timepicker_up_selected=0x7f020018;
     }
     public static final class id {
-        public static final int decrement=0x7f060009;
-        public static final int dialoghour=0x7f060001;
-        public static final int dialogminute=0x7f060002;
-        public static final int icon=0x7f06000b;
-        public static final int increment=0x7f060007;
-        public static final int menu_alarm_settings=0x7f060004;
-        public static final int menu_email=0x7f060006;
-        public static final int menu_set_goal=0x7f060005;
-        public static final int menu_view_progress=0x7f060003;
-        public static final int pref_num_picker=0x7f06000a;
-        public static final int savealarmsettings=0x7f060000;
-        public static final int startgoal=0x7f06000c;
-        public static final int timepicker_input=0x7f060008;
+        public static final int arc=0x7f07000d;
+        public static final int decrement=0x7f070009;
+        public static final int dialoghour=0x7f070001;
+        public static final int dialogminute=0x7f070002;
+        public static final int icon=0x7f07000b;
+        public static final int increment=0x7f070007;
+        public static final int menu_alarm_settings=0x7f070004;
+        public static final int menu_email=0x7f070006;
+        public static final int menu_set_goal=0x7f070005;
+        public static final int menu_view_progress=0x7f070003;
+        public static final int pref_num_picker=0x7f07000a;
+        public static final int savealarmsettings=0x7f070000;
+        public static final int startgoal=0x7f07000c;
+        public static final int timepicker_input=0x7f070008;
     }
     public static final class layout {
         public static final int alarmsettingslayout=0x7f030000;
@@ -65,17 +71,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int preferencelayout=0x7f030007;
         public static final int tempviewprogresslayout=0x7f030008;
         public static final int tutorial=0x7f030009;
+        public static final int widget=0x7f03000a;
     }
     public static final class string {
-        public static final int app_name=0x7f050003;
-        public static final int hello=0x7f050000;
-        public static final int preferences=0x7f050001;
-        public static final int tutorial=0x7f050002;
+        public static final int app_name=0x7f060003;
+        public static final int hello=0x7f060000;
+        public static final int preferences=0x7f060001;
+        public static final int tutorial=0x7f060002;
     }
     public static final class xml {
         public static final int alarmsettings=0x7f040000;
         public static final int preference=0x7f040001;
         public static final int tempviewprogress=0x7f040002;
+        public static final int widget=0x7f040003;
     }
     public static final class styleable {
         /** Attributes that can be used with a IconPreferenceScreen.
