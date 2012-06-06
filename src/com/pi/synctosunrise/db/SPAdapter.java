@@ -276,6 +276,29 @@ public class SPAdapter {
 		return str;
 	}
 	
+	// State
+	
+	public boolean getDayOrNight(){
+		// False is night, true is day. Better to return false by default to not throw errors. 
+		boolean bool = settings.getBoolean("dayOrNight", false);
+		return bool;
+	}
+	
+	public void setDayOrNight(boolean bool){
+		editor.putBoolean("dayOrNight", bool);
+		editor.commit();
+	}
+	
+	public void setNextSleepAlarm(long time){
+		editor.putLong("nextSleepAlarm", time);
+		editor.commit();
+	}
+	
+	public long getNextSleepAlarm(){
+		long time = settings.getLong("nextSleepAlarm", 0);
+		return time;
+	}
+	
 	// Subclasses
 	public class GoalDate {
 		

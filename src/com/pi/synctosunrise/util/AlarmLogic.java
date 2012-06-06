@@ -288,6 +288,7 @@ public class AlarmLogic {
 			
 			// Reset Preferences
 			adapter.setCurrentSleep(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
+			adapter.setCurrentSleep(cal.getTimeInMillis());
 			
 			break;
 		default:		

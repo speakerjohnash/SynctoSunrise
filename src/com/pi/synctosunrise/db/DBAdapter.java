@@ -1,11 +1,18 @@
 package com.pi.synctosunrise.db;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 import android.content.ContentValues;
 
 public class DBAdapter {
@@ -185,6 +192,114 @@ public class DBAdapter {
 		 			
 		    return cursor;
 		}
+		
+		// WIDGET
+		
+		// Get Last Wake
+		public long getLastWake()
+		{
+			Cursor cursor = db.rawQuery("SELECT actual_wake FROM days ORDER BY _id DESC LIMIT 1", null);
+				    
+			// Move Cursor to First row
+			cursor.moveToFirst();
+				 	
+			long time = cursor.getLong(0);
+							 	
+			return time;
+		}
+		
+		// CHART		
+				
+		// Get Chart Data
+		public GraphReturn getChartData(int goalID){
+					
+			// Get GoalTime at Goal ID
+			String timeQuery = "SELECT _id, start_goal_time, end_goal_time FROM goals WHERE _id = " + goalID;
+			Cursor cursor = db.rawQuery(timeQuery, null);
+			cursor.moveToLast();
+					
+			// TODO Make sure no error if no goal set
+					
+			long startGoalTime = cursor.getLong(1);
+			long endGoalTime = cursor.getLong(2);
+					
+			// Get Rows Relevant to that Goal (Only Return Rows With Sleep AND Wake Values)
+			String query = "SELECT _id, actual_wake, actual_sleep FROM days WHERE actual_sleep >= " + Long.toString(startGoalTime) + " AND actual_sleep <= " + Long.toString(endGoalTime) + " AND actual_wake > 0";
+					
+			Cursor cursor2 = db.rawQuery(query, null);
+			cursor2.moveToFirst();
+					
+			// Create Return Object
+			GraphReturn graphReturn = new GraphReturn(cursor2, startGoalTime, endGoalTime);
+					
+				return graphReturn;
+			}
+				
+		// Add Goal Row
+		public void insertGoal(long beginGoalTime, long endGoalTime, int wakeGradient, int sleepGradient){
+			String query = "INSERT INTO goals (start_goal_time,end_goal_time,wake_gradient,sleep_gradient) VALUES " + "(" + Long.toString(beginGoalTime) + "," + Long.toString(endGoalTime) + "," + Integer.toString(wakeGradient) + "," + Integer.toString(sleepGradient) + ")";
+			db.execSQL(query);
+		}
+
+		// Multiple Graph Return Values
+				
+		public class GraphReturn {
+					
+			private Cursor cursor;
+			private long startGoalTime;
+			private long endGoalTime;
+					
+			public GraphReturn (Cursor cursor, long startGoalTime, long endGoalTime) {
+				this.cursor = cursor;
+				this.startGoalTime = startGoalTime;
+				this.endGoalTime = endGoalTime;
+			}
+					
+			public Cursor getCursor() {
+				return cursor;
+			}
+					
+			public long getStart() {
+				return startGoalTime;
+			}
+					
+			public long getEnd() {
+				return endGoalTime;
+			}
+					
+		}
+				
+		
+		// DEBUGGING
+		
+		// Export Database
+		public void exportDatabase(){
+							
+			 try {
+				 
+			        File sd = Environment.getExternalStorageDirectory();
+			        File data = Environment.getDataDirectory();
+
+			        if (sd.canWrite()) {
+			            String currentDBPath = "//data//"+ "com.pi.synctosunrise" + "//databases//"+ "synctosunrise.db";
+			            String backupDBPath = "synctosunrise.db";
+			            File currentDB = new File(data, currentDBPath);
+			            File backupDB = new File(sd, backupDBPath);
+
+			            if (currentDB.exists()) {
+			                FileChannel src = new FileInputStream(currentDB).getChannel();
+			                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+			                dst.transferFrom(src, 0, src.size());
+			                src.close();
+			                dst.close();
+			                Toast.makeText(context, backupDB.toString(), Toast.LENGTH_LONG).show();
+			            }
+			        }
+			    } catch (Exception e) {
+			    	Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+			    }
+			 
+		}
 
 		// Create Dummy Data
 		public void addDummyData(int rows, int wakeGradient, int sleepGradient)
@@ -248,64 +363,4 @@ public class DBAdapter {
 			db.execSQL(query);
 		}
 		
-		// Get Chart Data
-		public GraphReturn getChartData(int goalID){
-			
-			// Get GoalTime at Goal ID
-			String timeQuery = "SELECT _id, start_goal_time, end_goal_time FROM goals WHERE _id = " + goalID;
-			Cursor cursor = db.rawQuery(timeQuery, null);
-			cursor.moveToLast();
-			
-			// TODO Make sure no error if no goal set
-			
-			long startGoalTime = cursor.getLong(1);
-			long endGoalTime = cursor.getLong(2);
-			
-			// Get Rows Relevant to that Goal (Only Return Rows With Sleep AND Wake Values)
-			String query = "SELECT _id, actual_wake, actual_sleep FROM days WHERE actual_sleep >= " + Long.toString(startGoalTime) + " AND actual_sleep <= " + Long.toString(endGoalTime) + " AND actual_wake > 0";
-			
-			Cursor cursor2 = db.rawQuery(query, null);
-			cursor2.moveToFirst();
-			
-			// Create Return Object
-			GraphReturn graphReturn = new GraphReturn(cursor2, startGoalTime, endGoalTime);
-			
-			return graphReturn;
-		}
-		
-		// Add Goal Row
-		public void insertGoal(long beginGoalTime, long endGoalTime, int wakeGradient, int sleepGradient){
-			String query = "INSERT INTO goals (start_goal_time,end_goal_time,wake_gradient,sleep_gradient) VALUES " + "(" + Long.toString(beginGoalTime) + "," + Long.toString(endGoalTime) + "," + Integer.toString(wakeGradient) + "," + Integer.toString(sleepGradient) + ")";
-			db.execSQL(query);
-		}
-
-		// Multiple Graph Return Values
-		
-		public class GraphReturn {
-			
-			private Cursor cursor;
-			private long startGoalTime;
-			private long endGoalTime;
-			
-			public GraphReturn (Cursor cursor, long startGoalTime, long endGoalTime) {
-				this.cursor = cursor;
-				this.startGoalTime = startGoalTime;
-				this.endGoalTime = endGoalTime;
-			}
-			
-			public Cursor getCursor() {
-				return cursor;
-			}
-			
-			public long getStart() {
-				return startGoalTime;
-			}
-			
-			public long getEnd() {
-				return endGoalTime;
-			}
-			
-		}
-
-	
 }

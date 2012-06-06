@@ -86,12 +86,14 @@ public class AlarmSave extends IntentService {
 		wakeOrSleep = intent.getStringExtra(Intent.EXTRA_TEXT);
 		alarmTime = today.getTimeInMillis();
 		
-		// TODO Save Alarm
+		// Save Alarm
 		if(wakeOrSleep.equals("wake")){
 			db.insertWake(alarmTime);
+			sp.setDayOrNight(true);
 		}
 		else if (wakeOrSleep.equals("sleep")){
 			db.insertSleep(alarmTime);
+			sp.setDayOrNight(false);
 		}
 		
 		// Close Database
