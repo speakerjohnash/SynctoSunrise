@@ -63,8 +63,9 @@ public class SunriseSunset {
 		longitude = location.getLongitude();
 		
 		// Get Location from Preferences if unavailable
+		sp = new SPAdapter(ctx);
+		
 		if(latitude == Double.NaN || longitude == Double.NaN){
-			sp = new SPAdapter(ctx);
 			latitude = sp.getLatitude();
 			longitude = sp.getLongitude();
 		}
