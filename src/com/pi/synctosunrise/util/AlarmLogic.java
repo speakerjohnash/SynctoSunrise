@@ -26,8 +26,7 @@ public class AlarmLogic {
 		this.ctx = ctx;
 		adapter = new SPAdapter(ctx);
 		mHandler = new Handler();
-		
-		
+				
 	}
 	
 	// Wake / Sleep Enum

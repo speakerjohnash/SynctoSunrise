@@ -31,23 +31,24 @@ public class AlarmSave extends IntentService {
 	private Calendar sunsetCal;
 	private long sleepLength;
 	private long wakeLength;
-	long alarmTime;
-	long wakeOffset;
-	long minSleep;
-	long maxSleep;
-	boolean mode;
-	String wakeOrSleep;
+	private long alarmTime;
+	private long wakeOffset;
+	private long minSleep;
+	private long maxSleep;
+	private long nextSleepAlarm;
+	private boolean mode;
+	private String wakeOrSleep;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		
-		//Data
+		// Data
 		db = new DBAdapter(getApplicationContext());
 		sp = new SPAdapter(getApplicationContext());
 		al = new AlarmLogic(getApplicationContext());
 		
-		// Cals
+		// Calls
 		today = Calendar.getInstance();
 		tmrw = Calendar.getInstance();
 		tmrw.add(Calendar.DATE,1);
@@ -114,13 +115,11 @@ public class AlarmSave extends IntentService {
 					
 					// Set Alarm 
 					al.setAlarm(c, AlarmLogic.WakeSleepEnum.WAKE);
-					Log.d("this is set", c.toString());
 				}
 				else {
 					// Still Moving Towards Goal
 					Calendar cal = al.getNextAlarm(AlarmLogic.WakeSleepEnum.WAKE, false);
 					al.setAlarm(cal, AlarmLogic.WakeSleepEnum.WAKE);
-					Log.d("this is set", cal.toString());
 				}
 			}
 			
@@ -140,20 +139,29 @@ public class AlarmSave extends IntentService {
 							c2.add(Calendar.MILLISECOND, (int) (millisInDay - minSleep));
 						}
 						al.setAlarm(c2, AlarmLogic.WakeSleepEnum.SLEEP);
-						Log.d("this is set", c2.toString());
+						
+						// Cache Sleep Alarm Value
+						nextSleepAlarm = c2.getTimeInMillis();
+						sp.setNextSleepAlarm(nextSleepAlarm);
+						
 					}
 					
 					// Otherwise just set alarm
 					else {
 						al.setAlarm(c, AlarmLogic.WakeSleepEnum.SLEEP);
-						Log.d("this is set", c.toString());
+						// Cache Sleep Alarm Value
+						nextSleepAlarm = c.getTimeInMillis();
+						sp.setNextSleepAlarm(nextSleepAlarm);
 					}
 					
 				}
 				else {
 					// Still Moving Towards Goal
-					al.setAlarm(al.getNextAlarm(AlarmLogic.WakeSleepEnum.SLEEP, false), AlarmLogic.WakeSleepEnum.SLEEP);
-					Log.d("this is set", al.getNextAlarm(AlarmLogic.WakeSleepEnum.SLEEP, false).toString());
+					Calendar nextCal = al.getNextAlarm(AlarmLogic.WakeSleepEnum.SLEEP, false);
+					al.setAlarm(nextCal, AlarmLogic.WakeSleepEnum.SLEEP);
+					// Cache Sleep Alarm Value
+					nextSleepAlarm = nextCal.getTimeInMillis();
+					sp.setNextSleepAlarm(nextSleepAlarm);
 				}
 			}
 		}
@@ -161,9 +169,13 @@ public class AlarmSave extends IntentService {
 		// CUSTOM SCHEDULE
 		else if (mode == false){
 			if(wakeOrSleep.equals("wake")) al.setAlarm(al.getNextAlarm(AlarmLogic.WakeSleepEnum.WAKE, false), AlarmLogic.WakeSleepEnum.WAKE);
-			else if(wakeOrSleep.equals("sleep")) al.setAlarm(al.getNextAlarm(AlarmLogic.WakeSleepEnum.SLEEP, false), AlarmLogic.WakeSleepEnum.SLEEP);
+			else if(wakeOrSleep.equals("sleep")) {
+				al.setAlarm(al.getNextAlarm(AlarmLogic.WakeSleepEnum.SLEEP, false), AlarmLogic.WakeSleepEnum.SLEEP);
+				nextSleepAlarm = al.getNextAlarm(AlarmLogic.WakeSleepEnum.SLEEP, false).getTimeInMillis();
+				sp.setNextSleepAlarm(nextSleepAlarm);
+			}
 		}	
-		
+					
 	} 
 
 }

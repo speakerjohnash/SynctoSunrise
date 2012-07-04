@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.lang.Math;
 import java.util.TimeZone;
 
+import com.pi.synctosunrise.db.SPAdapter;
+
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.Criteria;
@@ -26,6 +28,7 @@ public class SunriseSunset {
 	public Location loc;
 	private boolean britishEmpire = false;
 	private Calendar SunCalendar;
+	private SPAdapter sp;
 	
 	private double three60ify(double number)
 	{
@@ -56,15 +59,19 @@ public class SunriseSunset {
 		}
 		
 		// Get Latitude / Longitude
-		Log.d("com.pi.synctosunrise", location.toString());
-
 		latitude = location.getLatitude();
 		longitude = location.getLongitude();
 		
-		// For Computer Testing
-		// latitude = 38.4405556;
-		// longitude = -122.7133333;
+		// Get Location from Preferences if unavailable
+		if(latitude == Double.NaN || longitude == Double.NaN){
+			sp = new SPAdapter(ctx);
+			latitude = sp.getLatitude();
+			longitude = sp.getLongitude();
+		}
 		
+		// Cache Latitude / Longitude
+		sp.cacheLocation(latitude, longitude);
+				
 		// GET HOUR ANGLE
 		double hourAngle = longitude / 15;
 		
@@ -80,17 +87,17 @@ public class SunriseSunset {
 				defaultTime = 18;
 				break;
 			default:
-				defaultTime = 6; // stupid
+				defaultTime = 6;
 		}
 		double baseT = (double) dayOfYear + ( ( defaultTime - hourAngle ) / 24 );
 			
 		// Now we will calculate the mean anomaly of the sun /geek
-		double mean = ( 0.9856 * baseT ) - 3.289; // what the heck do these numbers come from
+		double mean = ( 0.9856 * baseT ) - 3.289;
 		
 		// Calculate true longitude of the sun
-		double trueLon = mean + (1.916 * Math.sin(Math.toRadians(mean))) + (0.02 * Math.sin(Math.toRadians(2 * mean))) + 282.634; // honestly WTF
+		double trueLon = mean + (1.916 * Math.sin(Math.toRadians(mean))) + (0.02 * Math.sin(Math.toRadians(2 * mean))) + 282.634;
 		
-		// Sometimes L is outside the range of 0 - 360 degrese.
+		// Sometimes L is outside the range of 0 - 360 degrees.
 		trueLon = three60ify(trueLon);
 		
 		// Now we calculate Right Ascension
@@ -132,13 +139,12 @@ public class SunriseSunset {
 				break;
 			default:
 				H = 360 - Math.toDegrees(Math.acos(cosh));
-				// default is dumb.
 		}
 		
-		// now we convert hours to hours
+		// Convert hours to hours
 		H = H / 15;
 				
-		// Im just gonna go for it
+		// Just go crazy with it
 		double time = H + rightAsc - (0.06571 * baseT) - 6.622;		
 		
 		// Universal Time

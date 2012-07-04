@@ -299,6 +299,24 @@ public class SPAdapter {
 		return time;
 	}
 	
+	public void cacheLocation(double latitude, double longitude){
+		String lat = Double.toString(latitude);
+		String lon = Double.toString(longitude);	
+		editor.putString("latitude", lat);
+		editor.putString("longitude", lon);
+		editor.commit();
+	}
+	
+	public double getLatitude(){
+		double latitude = Double.parseDouble(settings.getString("latitude", null));
+		return latitude;
+	}
+	
+	public double getLongitude(){
+		double longitude = Double.parseDouble(settings.getString("longitude", null));
+		return longitude;
+	}
+	
 	// Subclasses
 	public class GoalDate {
 		

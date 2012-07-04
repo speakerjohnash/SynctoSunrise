@@ -4,31 +4,24 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 import com.pi.synctosunrise.db.SPAdapter;
-import com.pi.synctosunrise.display.SunChartEngine;
 import com.pi.synctosunrise.util.AlarmLogic;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 public class ViewProgressActivity extends PreferenceActivity {
-	
-	protected SunChartView sunchartview;
-	
+			
 	// ON CREATE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Sync to Sunrise: View Progress");
-        
+             
         // TEMP STUFF
         addPreferencesFromResource(com.pi.synctosunrise.R.xml.tempviewprogress);
         setContentView(com.pi.synctosunrise.R.layout.tempviewprogresslayout);
@@ -62,11 +55,7 @@ public class ViewProgressActivity extends PreferenceActivity {
      	if (graphData == null){
      		
      	}
-     	
-     // Create View
-     	sunchartview = new SunChartView(this);
-     	//setContentView(sunchartview);	
-        
+     	        
     }
     
     // Initiating Menu XML file (menu.xml)
@@ -126,33 +115,5 @@ public class ViewProgressActivity extends PreferenceActivity {
  		// TODO Return Graph Data (or Bitmap?)
  		return null;
  	}
-    
-    // SUN CHART VIEW
- 	private class SunChartView extends View{
- 		
- 		private int screenWidth;
- 		private int screenHeight;
- 		private SunChartEngine sunChart;
-
- 		public SunChartView(Context context) {
- 			super(context);
- 		}
- 		
- 		protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec){
- 		
- 			// Get Screen Width and Height
-		    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		    screenWidth = MeasureSpec.getSize(widthMeasureSpec);
-		    screenHeight = MeasureSpec.getSize(heightMeasureSpec);
-		    
- 		}
- 		
- 		@Override
-		protected void onDraw(Canvas canvas) {
- 			super.onDraw(canvas);
- 		}
- 	
- 	}	
-    
-	
+    	
 }

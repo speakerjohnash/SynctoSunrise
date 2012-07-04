@@ -111,9 +111,6 @@ public class SetGoalActivity extends PreferenceActivity {
         final Object data = getLastNonConfigurationInstance();
         myLocation = new GetLocation();
         
-     // Backup Database and Store on SD
-        db.exportDatabase();
-        
         cal = Calendar.getInstance();
         today = Calendar.getInstance();
 
