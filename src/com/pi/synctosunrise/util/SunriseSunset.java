@@ -47,6 +47,9 @@ public class SunriseSunset {
 
 	// Constructor
 	public SunriseSunset(Calendar cal, SunEnum value, Context ctx) {
+		
+		//Data
+		sp = new SPAdapter(ctx);
 				
 		//Get Location Object
 		LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
@@ -59,17 +62,14 @@ public class SunriseSunset {
 		}
 		
 		// Get Latitude / Longitude
-		latitude = location.getLatitude();
-		longitude = location.getLongitude();
-		
-		// Get Location from Preferences if unavailable
-		sp = new SPAdapter(ctx);
-		
-		if(latitude == Double.NaN || longitude == Double.NaN){
+		if (location != null){
+			latitude = location.getLatitude();
+			longitude = location.getLongitude();
+		} else {
 			latitude = sp.getLatitude();
 			longitude = sp.getLongitude();
 		}
-		
+				
 		// Cache Latitude / Longitude
 		sp.cacheLocation(latitude, longitude);
 				
