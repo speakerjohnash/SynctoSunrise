@@ -293,9 +293,7 @@ public class AlarmLogic {
 		default:		
 		}
 	}
-	
-	// Test Change
-	
+		
 	protected Calendar estimateAlarm(Calendar cal, WakeSleepEnum value){
 		return null;
 	}
