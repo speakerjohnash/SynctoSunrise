@@ -89,13 +89,7 @@ public class DayArcView extends View {
 		mCalendar = Calendar.getInstance();
 		sp = new SPAdapter(context);
         db = new DBAdapter(context);
-		dayOrNight = sp.getDayOrNight();
-		
-        // Night Set Up        
-        if (!dayOrNight){
-			return; // Don't Draw Anything at Night time
-		}
-        
+		       
 		// Get Last Wake/ Next Sleep
         db.open();
         long cWake = db.getLastWake();
@@ -171,11 +165,6 @@ public class DayArcView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		
-		if (!dayOrNight){
-			// TODO Draw Moon
-			return;
-		}
 		
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);

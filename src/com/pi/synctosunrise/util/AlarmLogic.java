@@ -293,7 +293,7 @@ public class AlarmLogic {
 		default:		
 		}
 	}
-		
+	
 	protected Calendar estimateAlarm(Calendar cal, WakeSleepEnum value){
 		return null;
 	}

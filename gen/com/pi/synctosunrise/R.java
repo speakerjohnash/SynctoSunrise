@@ -68,8 +68,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int preferenceicon=0x7f030006;
         public static final int preferencelayout=0x7f030007;
         public static final int tempviewprogresslayout=0x7f030008;
-        public static final int tutorial=0x7f030009;
-        public static final int widget=0x7f03000a;
+        public static final int widget=0x7f030009;
     }
     public static final class string {
         public static final int app_name=0x7f060003;
